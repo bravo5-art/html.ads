@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tCO - Video Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- Google AdSense Script -->
+    <!-- IMPORTANT: Replace ca-pub-XXXXXXXXXXXXXXXX with your own AdSense Publisher ID -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456"
+     crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .ad-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        /* Style for AdSense blocks to ensure they are visible */
+        .adsbygoogle {
+            display: block;
+            background-color: #374151; /* gray-700 */
+            border-radius: 0.5rem;
+            text-align: center;
+            color: #9ca3af; /* gray-400 */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header -->
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-red-500">tCO</h1>
+            <div class="relative w-1/2 max-w-lg">
+                <input type="text" id="search-bar" placeholder="Search for videos..." class="bg-gray-700 text-white border-2 border-gray-600 rounded-full py-2 px-4 w-full focus:outline-none focus:border-red-500">
+                <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div>
+                <button class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- Native Ad (In-feed AdSense Unit) Placeholder -->
+        <div id="native-ad-container" class="mb-8 p-4 rounded-lg bg-gray-800">
+             <h3 class="text-lg font-semibold mb-2">Sponsored Content</h3>
+            <!-- IMPORTANT: Replace YYYYYYYYYY with your AdSense Ad Unit ID for an In-feed ad -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-format="fluid"
+                 data-ad-layout-key="-fb+5w+4e-db+86"
+                 data-ad-client="ca-pub-1234567890123456"
+                 data-ad-slot="YYYYYYYYYY"></ins>
+        </div>
+
+
+        <h2 class="text-2xl font-bold mb-6">Recommended Videos</h2>
+
+        <!-- Video Grid -->
+        <div id="video-grid" class="video-grid">
+            <!-- Example Video Card -->
+            <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 video-card">
+                <img src="https://placehold.co/600x400/1a202c/ffffff?text=Video+Thumbnail" alt="Video Thumbnail" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2">Awesome Video Title</h3>
+                    <p class="text-gray-400 text-sm">Creator Name</p>
+                    <p class="text-gray-400 text-sm">1.2M views &bull; 2 weeks ago</p>
+                </div>
+            </div>
+            <!-- Rewarded Ad Card -->
+             <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 video-card-rewarded">
+                <img src="https://placehold.co/600x400/1a202c/ffffff?text=Watch+for+Reward!" alt="Video Thumbnail" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2">Unlock Premium Content</h3>
+                    <p class="text-gray-400 text-sm">Watch a short ad to continue.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Banner Ad -->
+    <footer id="banner-ad-container" class="fixed bottom-0 left-0 w-full bg-gray-800 p-2 text-center z-50">
+        <!-- IMPORTANT: Replace XXXXXXXXXX with your AdSense Ad Unit ID for a banner ad -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-1234567890123456"
+            data-ad-slot="XXXXXXXXXX"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+    </footer>
+
+    <!-- Interstitial Ad Modal (using a display ad) -->
+    <div id="interstitial-modal" class="ad-modal">
+        <div class="bg-gray-900 p-8 rounded-lg text-center relative max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-4">Advertisement</h2>
+            <!-- IMPORTANT: Replace ZZZZZZZZZZ with your AdSense Ad Unit ID for a display ad -->
+            <ins class="adsbygoogle"
+                 id="interstitial-ad-slot"
+                 style="display:block; width:300px; height:250px;"
+                 data-ad-client="ca-pub-1234567890123456"
+                 data-ad-slot="ZZZZZZZZZZ"></ins>
+            <button id="close-interstitial" class="absolute top-2 right-3 text-white text-2xl font-bold">&times;</button>
+        </div>
+    </div>
+    
+    <!-- Rewarded Ad Modal (simulation only) -->
+    <div id="rewarded-modal" class="ad-modal">
+        <div class="bg-gray-900 p-8 rounded-lg text-center relative max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-4">Watch Ad to Get Reward!</h2>
+            <p class="text-gray-400 mb-4">Rewarded ads on the web are complex and require a specific AdSense API. This is a simulation.</p>
+            <div id="rewarded-ad-placeholder" class="bg-gray-700 h-48 flex items-center justify-center rounded-lg">
+                <p>Simulated Video Ad</p>
+            </div>
+            <p id="reward-timer" class="text-lg my-4"></p>
+            <button id="close-rewarded" class="absolute top-2 right-3 text-white text-2xl font-bold">&times;</button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Initialize All AdSense Ads ---
+        function initializeAds() {
+            document.querySelectorAll('.adsbygoogle').forEach(ad => {
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {
+                    console.error("AdSense error:", e);
+                    ad.innerHTML = "Ad failed to load. Please check your AdSense setup and ad blocker.";
+                }
+            });
+        }
+        
+        // --- Ad Modals and Logic ---
+        const interstitialModal = document.getElementById('interstitial-modal');
+        const closeInterstitialBtn = document.getElementById('close-interstitial');
+        const rewardedModal = document.getElementById('rewarded-modal');
+        const closeRewardedBtn = document.getElementById('close-rewarded');
+        const rewardedVideoCard = document.querySelector('.video-card-rewarded');
+        let interstitialTimer;
+
+        // Function to show the interstitial ad modal
+        function showInterstitialAd() {
+            console.log("Showing Interstitial Ad Modal.");
+            interstitialModal.style.display = 'flex';
+            // Request the ad when the modal is shown
+            try {
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.error("Interstitial AdSense error:", e);
+                document.getElementById('interstitial-ad-slot').innerHTML = "Ad failed to load.";
+            }
+        }
+        
+        // Function to show the rewarded ad modal
+        function showRewardedAd() {
+            console.log("Showing Rewarded Ad Simulation.");
+            rewardedModal.style.display = 'flex';
+            // Simulating a timer for the reward
+            let seconds = 5;
+            const timerEl = document.getElementById('reward-timer');
+            timerEl.textContent = `Watch for ${seconds} more seconds to get your reward!`;
+            const interval = setInterval(() => {
+                seconds--;
+                timerEl.textContent = `Watch for ${seconds} more seconds to get your reward!`;
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    timerEl.textContent = "Reward Granted! 🎉";
+                    console.log("Reward granted for watching the simulated ad.");
+                }
+            }, 1000);
+        }
+
+        // Close button functionality
+        closeInterstitialBtn.addEventListener('click', () => {
+            interstitialModal.style.display = 'none';
+        });
+        closeRewardedBtn.addEventListener('click', () => {
+             rewardedModal.style.display = 'none';
+        });
+        
+        // --- Event Listeners and Dummy Content ---
+        function setupVideoCards() {
+            document.querySelectorAll('.video-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log("Navigating to video... but first, an ad!");
+                    showInterstitialAd();
+                });
+            });
+            
+            if (rewardedVideoCard) {
+                rewardedVideoCard.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log("User wants to watch rewarded content.");
+                    showRewardedAd();
+                });
+            }
+        }
+        
+        function generateDummyContent() {
+            const videoGrid = document.getElementById('video-grid');
+            for (let i = 0; i < 10; i++) {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 video-card';
+                videoCard.innerHTML = `
+                    <img src="https://placehold.co/600x400/1a202c/ffffff?text=Video+${i+1}" alt="Video Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Sample Video Title ${i+1}</h3>
+                        <p class="text-gray-400 text-sm">Channel ${i % 3 + 1}</p>
+                        <p class="text-gray-400 text-sm">${Math.floor(Math.random() * 500)}k views &bull; ${i+1} days ago</p>
+                    </div>
+                `;
+                videoGrid.appendChild(videoCard);
+            }
+        }
+        
+        // --- Page Load ---
+        window.onload = function() {
+            // Generate dummy videos
+            generateDummyContent();
+            
+            // Set up click listeners on all video cards
+            setupVideoCards();
+            
+            // Initialize all AdSense ad slots on the page
+            initializeAds();
+            
+            // Show the first interstitial ad after a delay.
+            // Note: Auto-playing popups can be blocked by browsers. This is for demonstration.
+            interstitialTimer = setTimeout(showInterstitialAd, 8000);
+        };
+
+    </script>
+</body>
+</html>
